@@ -1,8 +1,11 @@
-// El componente recibe un objeto 'producto' a traves de las 'props'
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
+
 function ProductCard({ producto }) {
+  const { addToCart } = useContext(CartContext);
+
   return (
     <div style={styles.card}>
-      {/* Si no hay imagen, mostramos un placeholder */}
       <img
         src={
           producto.imagen_url
@@ -16,13 +19,20 @@ function ProductCard({ producto }) {
         <h3 style={styles.title}>{producto.nombre}</h3>
         <p style={styles.price}>${producto.precio}</p>
         <p style={styles.stock}>Stock disponible: {producto.stock}</p>
-        <button style={styles.button}>Añadir al carrito</button>
+        {producto.stock > 0 ? (
+          <button style={styles.button} onClick={() => addToCart(producto)}>
+            Añadir al carrito
+          </button>
+        ) : (
+          <button style={styles.buttonDisabled} disabled>
+            Agotado
+          </button>
+        )}
       </div>
     </div>
   );
 }
 
-//Objeto de estilos (En React podemos usar CSS en línea mediante objetos JS)
 const styles = {
   card: {
     border: "1px solid #334155",
@@ -42,9 +52,20 @@ const styles = {
     padding: "10px",
     backgroundColor: "#3b82f6",
     color: "white",
+    border: "none",
     borderRadius: "4px",
     cursor: "pointer",
     fontWeight: "bold",
   },
+  buttonDisabled: {
+    width: "100%",
+    padding: "10px",
+    backgroundColor: "#475569",
+    color: "white",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "not-allowed",
+  },
 };
+
 export default ProductCard;

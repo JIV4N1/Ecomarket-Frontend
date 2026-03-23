@@ -1,12 +1,15 @@
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { CartContext } from "../context/CartContext";
 
 function Navbar() {
   const nombreTienda = "EcoMarket Pro";
   const { user, logout } = useContext(AuthContext);
+  const { cart } = useContext(CartContext);
   const navigate = useNavigate();
 
+  const totalItems = cart.reduce((total, item) => total + item.cantidad, 0);
   const handleLogout = () => {
     logout();
     navigate("/");
@@ -26,6 +29,11 @@ function Navbar() {
         <li>
           <Link to="/" style={styles.link}>
             Catálogo
+          </Link>
+        </li>
+        <li>
+          <Link to="/carrito" style={styles.link}>
+            Mi Carrito {totalItems > 0 && `(${totalItems})`}
           </Link>
         </li>
         {user ? (
