@@ -1,24 +1,53 @@
-import { Link } from "react-router-dom";
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const exito = await login(email, password);
+    if (exito) {
+      navigate("/");
+    }
+  };
+
   return (
     <div style={styles.container}>
       <div style={styles.formCard}>
         <h2 style={{ textAlign: "center", color: "#3b82f6" }}>
           Iniciar Sesión
         </h2>
-        <form style={styles.form}>
+        <form onSubmit={handleSubmit} style={styles.form}>
           <label>Email</label>
-          <input type="email" placeholder="tu@email.com" style={styles.input} />
+          <input
+            type="email"
+            placeholder="tu@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            style={styles.input}
+            required
+          />
           <label>Contraseña</label>
-          <input type="password" placeholder="*******" style={styles.input} />
+          <input
+            type="password"
+            placeholder="*******"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={styles.input}
+            required
+          />
           <button type="submit" style={styles.button}>
             Entrar
           </button>
         </form>
         <p style={{ textAlign: "center", marginTop: "15px" }}>
           ¿No tienes cuenta?{" "}
-          <Link to="/registro" style={{ color: "#3b82f6", cursor: "pointer" }}>
+          <Link to="/registro" style={{ color: "#3b82f6" }}>
             Regístrate aquí
           </Link>
         </p>

@@ -1,7 +1,16 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 function Navbar() {
   const nombreTienda = "EcoMarket Pro";
+  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <nav style={styles.nav}>
@@ -19,11 +28,22 @@ function Navbar() {
             Catálogo
           </Link>
         </li>
-        <li>
-          <Link to="/login" style={styles.link}>
-            Iniciar Sesión
-          </Link>
-        </li>
+        {user ? (
+          <>
+            <li style={styles.link}>Hola, {user.nombre}</li>
+            <li>
+              <button onClick={handleLogout} style={styles.logoutBtn}>
+                Cerrar Sesión
+              </button>
+            </li>
+          </>
+        ) : (
+          <li>
+            <Link to="/login" style={styles.link}>
+              Iniciar Sesión
+            </Link>
+          </li>
+        )}
       </ul>
     </nav>
   );
@@ -46,6 +66,15 @@ const styles = {
     fontWeight: "bold",
     textDecoration: "none",
     color: "white",
+  },
+  logoutBtn: {
+    backgroundColor: "#ef4444",
+    color: "white",
+    border: "none",
+    padding: "6px 12px",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontWeight: "bold",
   },
 };
 
