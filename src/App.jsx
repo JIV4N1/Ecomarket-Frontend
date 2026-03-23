@@ -1,28 +1,31 @@
-import FootBar from "./components/Footer";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import CardProduct from "./components/ProductCard";
-import ProductList from "./components/ProductList";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
-    //2. En JSX, debes retornar un único elemento padre.
-    //Usamos un div o fragmentos vacíos <></> para envolber todo.
-
-    <div
-      style={{ backgroundColor: "#0f172a", minHeight: "100vh", color: "white" }}
-    >
-      {/* 3. Invocamos el componente como si fuera una etiqueta HTML */}
-      <Navbar />
-      <main style={{ padding: "20px", fontFamily: "sans-serif" }}>
-        <h2>Bienvenido a la tienda</h2>
-        <p>El portal está en construcción.</p>
-
-        <ProductList />
-      </main>
-
-      <FootBar />
-      <div></div>
-    </div>
+    <BrowserRouter>
+      <div
+        style={{
+          backgroundColor: "#0f172a",
+          minHeight: "100vh",
+          color: "white",
+        }}
+      >
+        <Navbar />
+        <main style={{ padding: "20px" }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/registro" element={<Register />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 
