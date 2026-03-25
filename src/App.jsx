@@ -37,7 +37,7 @@ function App() {
             <Route
               path="/carrito"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requireNormalUser={true}>
                   <Cart />
                 </ProtectedRoute>
               }
@@ -45,7 +45,7 @@ function App() {
             <Route
               path="/mis-compras"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute requireNormalUser={true}>
                   <MisCompras />
                 </ProtectedRoute>
               }
@@ -53,7 +53,7 @@ function App() {
             <Route
               path="/admin"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute adminOnly={true}>
                   <AdminDashboard />
                 </ProtectedRoute>
               }
