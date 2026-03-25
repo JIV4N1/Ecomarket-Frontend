@@ -36,8 +36,22 @@ function Navbar() {
             Mi Carrito {totalItems > 0 && `(${totalItems})`}
           </Link>
         </li>
+        {user && (
+          <li>
+            <Link to="/mis-compras" style={styles.link}>
+              Mis Compras
+            </Link>
+          </li>
+        )}
         {user ? (
           <>
+            {user.role === "admin" && (
+              <li>
+                <Link to="/admin" style={styles.link}>
+                  Admin
+                </Link>
+              </li>
+            )}
             <li style={styles.link}>Hola, {user.nombre}</li>
             <li>
               <button onClick={handleLogout} style={styles.logoutBtn}>

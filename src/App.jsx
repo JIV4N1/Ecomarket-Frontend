@@ -7,6 +7,8 @@ import Register from "./pages/Register";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Perfil from "./pages/Perfil";
 import Cart from "./pages/Cart";
+import AdminDashboard from "./pages/AdminDashboard";
+import MisCompras from "./pages/MisCompras";
 
 function App() {
   return (
@@ -37,6 +39,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Cart />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/mis-compras"
+              element={
+                <ProtectedRoute>
+                  <MisCompras />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute>
+                  <AdminDashboard />
                 </ProtectedRoute>
               }
             />
